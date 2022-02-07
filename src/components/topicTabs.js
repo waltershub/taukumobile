@@ -38,7 +38,7 @@ const TopicTabs = () => {
       navigationState={{index, routes}}
       renderScene={renderScene}
       onIndexChange={setIndex}
-      initialLayout={{flex: 1, width: '100%', height: '100%'}}
+      initialLayout={{flex: 1}}
     />
   );
 };

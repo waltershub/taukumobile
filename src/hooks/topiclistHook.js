@@ -12,8 +12,6 @@ const topiclistHook = apiUrl => {
     try {
       const toptopicsRes = await fetch(`https://www.taeku.app/${apiUrl}`);
       const topTopicsJson = await toptopicsRes.json();
-
-      console.log('top topics', topTopicsJson);
       setTopics(topTopicsJson);
     } catch (error) {
       console.log('error', error);
