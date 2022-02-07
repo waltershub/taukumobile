@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     flex: 1,
     height: '100%',
-    width: '100%',
   },
 });
 

@@ -2,11 +2,12 @@ import React from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  Image,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import {moderateScale} from 'react-native-size-matters';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import topiclistHook from '../hooks/topiclistHook';
 
 const TopicFlatlist = ({apiUrl}) => {
@@ -14,21 +15,90 @@ const TopicFlatlist = ({apiUrl}) => {
 
   return (
     <FlatList
-      contentContainerStyle={{flex: 1}}
+      style={{flex: 1}}
+      contentContainerStyle={{
+        marginHorizontal: scale(10),
+      }}
       data={topics}
       ListEmptyComponent={ListEmptyComponent}
       keyExtractor={item => item._id}
       initialNumToRender={5}
       renderItem={TopicRenderItem}
+      ListFooterComponent={<View style={{height: 20}} />}
     />
   );
 };
 
 const TopicRenderItem = ({item}) => (
-  <View>
-    <Text>{item.argument}</Text>
+  <View
+    style={{
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginHorizontal: scale(25),
+    }}>
+    <Avatar user={item.user[0]} />
+    <View
+      style={{
+        borderRadius: 5,
+        backgroundColor: '#FFF',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        elevation: 3,
+        borderColor: '#000',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: scale(250),
+        height: verticalScale(100),
+        marginVertical: verticalScale(10),
+      }}>
+      <Text>{item.argument}</Text>
+    </View>
   </View>
 );
+
+const Avatar = ({user}) => {
+  return (
+    <View
+      style={{
+        backgroundColor: '#0047AB',
+        height: scale(20),
+        width: scale(20),
+        borderRadius: scale(10),
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
+      }}>
+      {user.profilePicture ? (
+        <Image
+          source={{uri: user.profilePicture}}
+          style={{
+            height: scale(20),
+            width: scale(20),
+            borderRadius: scale(10),
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
+      ) : (
+        <Text style={{color: '#fff'}}>{user.name[0]}</Text>
+      )}
+    </View>
+  );
+};
 
 const ListEmptyComponent = () => (
   <View style={styles.listEmptyComponentContainer}>
